@@ -10,7 +10,7 @@ $(document).ready(function(){
             alert(e.message);
         });
     });
-
+    
     $("#signup-button").click(function(){
         console.log("Signup");
         var email = $("#email-input").val();
@@ -20,11 +20,11 @@ $(document).ready(function(){
             alert(e.message);
         });
     });
-
+    
     auth.onAuthStateChanged(function(firebaseUser){
         if (firebaseUser) {
             window.location= "app.html";
         }
     });
-
+    
 });
