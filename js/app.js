@@ -1,62 +1,39 @@
-$(document).ready(function(){
-    var auth = firebase.auth();
-    var firebaseUser = {};
-    var characters = [];
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDBgPgEjpEG4kZqyq1Vnw39bc3Rw-U-Hrc",
+        authDomain: "marvel-2.firebaseapp.com",
+        databaseURL: "https://marvel-2.firebaseio.com",
+        projectId: "marvel-2",
+        storageBucket: "marvel-2.appspot.com",
+        messagingSenderId: "668439989433"
+    };
+    firebase.initializeApp(config);
     
-    auth.onAuthStateChanged(function(firebaseUser){
-        if (!firebaseUser) {
-            window.location= "index.html";
-        } else {
-            window.firebaseUser = firebaseUser;
-            $("#user-email").text(firebaseUser.email);
-        }
-    });
+    /*var marvel_config = {
+        apiKey: "0ab55f3eb3f88236784a773210cfad1b",
+    }; */
     
-    $("#logout-button").click(function(){
-        auth.signOut();
-    })
     
-    $('#search-input').keydown( function(event) {
-        var search = $(this).val();
-        console.log(event.which);
-        if ( event.which == 13 && search.length > 3 ){
-          searchCharacters(search);
-          event.preventDefault();
-        }
+    $(document).ready(function(){
+        console.log('Página cargada');
         
+        
+        $("#logout").click(function() {
+            console.log('Botón logout clicleado');
+            firebase.auth().signOut();
+        });
+
+        firebase.auth().onAuthStateChanged( function(user){
+            console.log("checking login state");
+            if (user) {
+                console.log("logged in");
+                $("#user").text(user.email);
+            } else {
+                console.log("logged out");
+                window.location="index.html";
+            }
+        } );
+       
     });
     
-    function searchCharacters(search){
-        search = encodeURIComponent(search);
-        $.ajax({
-            url: "https://gateway.marvel.com:443/v1/public/characters?nameStartsWith="+search+"&apikey=" +marvel_config.apiKey,
-            success: function( result ) {
-                
-                var rawCharacters = result.data.results;
-                
-                
-                characters = rawCharacters.map(function(character) {
-                    var data = {
-                        description: character.description,
-                        name: character.name,
-                        img: character.thumbnail.path + "." + character.thumbnail.extension,
-                        url: character.urls[0].url,
-                    }
-                    return data;
-                });
-                
-                renderCharacters();
-            }
-        });
-    }
-
-    function renderCharacters(){
-        var $charactersContainer = $("#characters-container");
-        $charactersContainer.html("");
-        var template = $("#character-template").html();
-        characters.forEach(function(character) {
-            $charactersContainer.append( fillTemplate(template,character) );
-        });
-    }
-
-});
+    
