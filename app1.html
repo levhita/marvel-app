@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marvel App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark justify-content-between">
+        <span class="navbar-brand">MarvelApp</span>
+        <div style="color:white" id="user-email"></div>
+        <button id="logout-button" class="btn btn-secondary" type="button">Logout</button>
+    </nav>
+    <br/>
+    <header class="container">
+        <div class="row">
+            <form class="form-inline col-12">
+                <div class="form-group">
+                    <label  for="search-input">Search:</label>
+                    <input  id="search-input" type="text" class="form-control"/>
+                    <button id="search-button" class="form-control btn btn-primary" type="button">Search</button>
+                </div>
+            </form>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section id="characters-container" class="row">
+            
+        </section>
+    </main>
+    
+    <div id="character-template" style="display:none">
+        <div class="card">
+            <img class="card-img-top" src="{{img}}" alt="{{name}}">
+            <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text">{{description}}</p>
+                <a href="{{url}}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="vendor/js/jquery-3.3.1.js"></script>
+    <script src="vendor/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utilities.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
